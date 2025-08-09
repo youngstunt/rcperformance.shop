@@ -76,7 +76,7 @@ export default function Header() {
             <NavigationMenuItem>
               <Link href="tel:+18607755770" legacyBehavior passHref>
                 <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "hover:text-primary transition-colors")}>
-                  +1-860-775-5770
+                  +1-860-775-5770 (Call or Text)
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
@@ -130,7 +130,7 @@ export default function Header() {
              <NavigationMenuItem className="w-full">
                <Link href="tel:+18607755770" legacyBehavior passHref>
                  <NavigationMenuLink onClick={() => setIsMenuOpen(false)} className={cn(navigationMenuTriggerStyle(), "w-full justify-start hover:text-primary transition-colors")}>
-                   +1-860-775-5770
+                   +1-860-775-5770 (Call or Text)
                  </NavigationMenuLink>
                </Link>
              </NavigationMenuItem>

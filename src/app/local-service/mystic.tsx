@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { CheckCircle } from 'lucide-react';
+import CallToAction from '@/components/ui/CallToAction';
 
 export const metadata = {
   title: 'Mobile Mechanic in Mystic, CT | RC Performance',
@@ -70,6 +71,7 @@ export default function MysticServicePage() {
           reliable, high-quality mobile mechanic services.
         </p>
       </section>
+      <CallToAction />
     </div>
   );
 }
