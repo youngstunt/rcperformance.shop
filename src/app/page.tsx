@@ -7,6 +7,8 @@ import { motion } from "framer-motion";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
 import Contact from "@/components/sections/Contact";
+import Tagline from "@/components/sections/Tagline";
+import Map from "@/components/sections/Map";
 import { Separator } from "@/components/ui/separator";
 
 const SectionWrapper = ({ children }: { children: React.ReactNode }) => (
@@ -31,6 +33,12 @@ export default function Home() {
       <Separator className="my-8" />
 
       <SectionWrapper>
+        <Tagline />
+      </SectionWrapper>
+
+      <Separator className="my-8" />
+
+      <SectionWrapper>
         <Services />
       </SectionWrapper>
 
@@ -38,6 +46,12 @@ export default function Home() {
 
       <SectionWrapper>
         <Contact />
+      </SectionWrapper>
+
+      <Separator className="my-8" />
+
+      <SectionWrapper>
+        <Map />
       </SectionWrapper>
     </main>
   );

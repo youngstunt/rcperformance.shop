@@ -23,14 +23,14 @@ import { MapContainer, TileLayer, Circle } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const ServiceAreaMap = () => {
-  const austinCoordinates: [number, number] = [41.6068, -71.9809];
-  const radiusInMeters = 60 * 1609.34; // 50 miles to meters
+  const easternCtCoordinates: [number, number] = [41.6, -72.1];
+  const radiusInMeters = 50 * 1609.34; // 50 miles to meters
 
   return (
-    <MapContainer 
-      center={austinCoordinates} 
-      zoom={9} 
-      style={{ height: '100%', width: '100%', borderRadius: '0.5rem' }}
+    <MapContainer
+      center={easternCtCoordinates}
+      zoom={8}
+      style={{ height: '400px', width: '100%', borderRadius: '0.5rem' }}
       scrollWheelZoom={false}
       aria-label="Service area map centered on Eastern Connecticut"
     >
@@ -39,7 +39,7 @@ const ServiceAreaMap = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       <Circle
-        center={austinCoordinates}
+        center={easternCtCoordinates}
         radius={radiusInMeters}
         pathOptions={{
           color: 'hsl(var(--primary))',

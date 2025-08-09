@@ -1,4 +1,5 @@
 /* Chadson v69.0.0: Initializing global styles for RC Performance */
+@import url('https://fonts.googleapis.com/css?family=Metal+Mania');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -85,41 +86,41 @@ body {
 
   --radius: 0.625rem;
 
-  --background: oklch(0.27 0.06 260.0);
+  --background: oklch(0.2 0.03 230); /* Dark Navy Blue */
 
-  --foreground: oklch(1 0 0);
+  --foreground: oklch(0.95 0.01 230); /* Light Grey */
 
-  --card: oklch(0.35 0.1 260);
+  --card: oklch(0.25 0.04 230); /* Slightly Lighter Navy */
 
-  --card-foreground: oklch(1 0 0);
+  --card-foreground: oklch(0.95 0.01 230); /* Light Grey */
 
-  --popover: oklch(1 0 0);
+  --popover: oklch(0.15 0.02 230); /* Darker Navy */
 
-  --popover-foreground: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.95 0.01 230); /* Light Grey */
 
-  --primary: oklch(1 0 0);
+  --primary: oklch(0.7 0.15 260); /* A brighter blue for primary actions */
 
-  --primary-foreground: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.98 0.02 260); /* White */
 
-  --secondary: oklch(0.97 0 0);
+  --secondary: oklch(0.5 0.05 230); /* Steel Grey */
 
-  --secondary-foreground: oklch(1 0 0);
+  --secondary-foreground: oklch(0.98 0.02 230); /* White */
 
-  --muted: oklch(0.27 0.06 260.0);
+  --muted: oklch(0.3 0.03 230); /* Muted Navy */
 
-  --muted-foreground: oklch(1 0 0);
+  --muted-foreground: oklch(0.7 0.02 230); /* Lighter Grey */
 
-  --accent: oklch(0.97 0 0);
+  --accent: oklch(0.6 0.1 260); /* Accent Blue */
 
-  --accent-foreground: oklch(1 0 0);
+  --accent-foreground: oklch(1 0 0); /* White */
 
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: oklch(0.5 0.2 25); /* Red */
 
-  --border: oklch(0.922 0 0);
+  --border: oklch(0.4 0.04 230); /* Steel Grey Border */
 
-  --input: oklch(0.922 0 0);
+  --input: oklch(0.25 0.04 230); /* Slightly Lighter Navy */
 
-  --ring: oklch(0.708 0 0);
+  --ring: oklch(0.7 0.15 260); /* Brighter Blue for Ring */
 
   --chart-1: oklch(0.646 0.222 41.116);
 
@@ -149,34 +150,34 @@ body {
 }
 
 .dark {
-  --background: oklch(0.27 0.06 260.0);
-  --foreground: oklch(1 0 0);
-  
-  --muted: oklch(0.27 0.06 260.0);
-  --muted-foreground: oklch(1 0 0);
-  
-  --popover: oklch(0.1 0 0);
-  --popover-foreground: oklch(0.95 0 0);
-  
-  --card: oklch(0.35 0.1 260);
-  --card-foreground: oklch(1 0 0);
-  
-  --border: oklch(0.25 0 0);
-  --input: oklch(0.25 0 0);
-  
-  --primary: oklch(0.6 0.25 260);
-  --primary-foreground: oklch(0.98 0 0);
-  
-  --secondary: oklch(0.3 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
-  
-  --accent: oklch(0.3 0 0);
-  --accent-foreground: oklch(0.98 0 0);
-  
-  --destructive: oklch(0.55 0.25 25);
-  
-  --ring: oklch(0.6 0.25 260);
-  
+  --background: oklch(0.2 0.03 230); /* Dark Navy Blue */
+  --foreground: oklch(0.95 0.01 230); /* Light Grey */
+
+  --muted: oklch(0.3 0.03 230); /* Muted Navy */
+  --muted-foreground: oklch(0.7 0.02 230); /* Lighter Grey */
+
+  --popover: oklch(0.15 0.02 230); /* Darker Navy */
+  --popover-foreground: oklch(0.95 0.01 230); /* Light Grey */
+
+  --card: oklch(0.25 0.04 230); /* Slightly Lighter Navy */
+  --card-foreground: oklch(0.95 0.01 230); /* Light Grey */
+
+  --border: oklch(0.4 0.04 230); /* Steel Grey Border */
+  --input: oklch(0.25 0.04 230); /* Slightly Lighter Navy */
+
+  --primary: oklch(0.7 0.15 260); /* A brighter blue for primary actions */
+  --primary-foreground: oklch(0.98 0.02 260); /* White */
+
+  --secondary: oklch(0.5 0.05 230); /* Steel Grey */
+  --secondary-foreground: oklch(0.98 0.02 230); /* White */
+
+  --accent: oklch(0.6 0.1 260); /* Accent Blue */
+  --accent-foreground: oklch(1 0 0); /* White */
+
+  --destructive: oklch(0.5 0.2 25); /* Red */
+
+  --ring: oklch(0.7 0.15 260); /* Brighter Blue for Ring */
+
   --radius: 0.75rem;
 }
 
