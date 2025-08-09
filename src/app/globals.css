@@ -105,7 +105,7 @@ body {
 
   --secondary-foreground: oklch(1 0 0);
 
-  --muted: oklch(0.97 0 0);
+  --muted: oklch(0.27 0.06 260.0);
 
   --muted-foreground: oklch(1 0 0);
 
@@ -152,7 +152,7 @@ body {
   --background: oklch(0.27 0.06 260.0);
   --foreground: oklch(1 0 0);
   
-  --muted: oklch(0.2 0 0);
+  --muted: oklch(0.27 0.06 260.0);
   --muted-foreground: oklch(1 0 0);
   
   --popover: oklch(0.1 0 0);

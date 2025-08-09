@@ -14,7 +14,7 @@ import InfoBox from '@/components/blog/InfoBox';
 export const metadata = {
   title: "Unlocking Performance: A Guide to Common Car Deletes",
   date: "2025-07-14",
-  author: "Chadson",
+  author: "Craig",
   excerpt: "A guide to common performance 'deletes' for both diesel and gasoline vehicles, exploring the benefits and risks.",
 };
 

@@ -15,7 +15,7 @@ import InfoBox from '@/components/blog/InfoBox';
 export const metadata = {
   title: "DIY Tuning: Open Source Software for Your Tactrix OpenPort 2.0",
   date: "2025-07-14",
-  author: "Chadson",
+  author: "Craig",
   excerpt: "An overview of open-source ECU tuning software compatible with the Tactrix OpenPort 2.0, including EcuFlash and Atlas.",
 };
 

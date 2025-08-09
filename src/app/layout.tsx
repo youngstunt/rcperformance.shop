@@ -8,8 +8,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "RC Performance | Full Service Auto Repair, Performance Tuning & Deletes",
-  description: "Expert remote and mobile tuning services for performance and efficiency. Serving Austin, TX and beyond.",
+  title: "RC Performance | Connecticut's Premier ECU Tuning & Performance Shop",
+  description: "Expert ECU remapping, forced induction, and performance tuning in New London, CT. We offer mobile and remote tuning services for Subaru, Mitsubishi, and more.",
 };
 
 export default function RootLayout({
