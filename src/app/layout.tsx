@@ -39,6 +39,43 @@ export default function RootLayout({
         '@type': 'State',
         name: 'Connecticut'
       }
+    ],
+    "makesOffered": [
+      "Subaru",
+      "Mitsubishi",
+      "BMW",
+      "Audi",
+      "Volkswagen"
+    ],
+    "hasOffer": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "ECU Remapping"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Forced Induction"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Performance Exhaust"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Suspension Tuning"
+        }
+      }
     ]
   };
 

@@ -53,7 +53,7 @@ const getPost = async (slug: string) => {
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const { metadata } = await getPost(params.slug);
   return {
-    title: `${metadata.title} | Guerrilla Automotive Blog`,
+    title: `${metadata.title} | RC Performance Blog`,
     description: metadata.excerpt,
   };
 }
@@ -61,9 +61,39 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function BlogPost({ params }: { params: { slug: string } }) {
   const { PostComponent, metadata } = await getPost(params.slug);
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: metadata.title,
+    datePublished: metadata.date,
+    author: {
+      '@type': 'Person',
+      name: metadata.author,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'RC Performance',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://rcperformance.shop/logo.png',
+      },
+    },
+    description: metadata.excerpt,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://rcperformance.shop/blog/${params.slug}`,
+    },
+  };
+
   return (
     <main className="bg-background">
-      <BlogHeader 
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      <BlogHeader
         title={metadata.title}
         date={metadata.date}
         author={metadata.author}
