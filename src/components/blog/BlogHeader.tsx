@@ -8,7 +8,7 @@ import React from 'react';
 
 interface BlogHeaderProps {
   title: string;
-  date: string;
+  date?: string;
   author: string;
 }
 
@@ -18,11 +18,17 @@ const BlogHeader = ({ title, date, author }: BlogHeaderProps) => {
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-2 text-primary">{title}</h1>
         <p className="text-muted-foreground text-lg">
-          Published on {new Date(date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })} by {author}
+          {date ? (
+            <>
+              Published on {new Date(date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })} by {author}
+            </>
+          ) : (
+            <>By {author}</>
+          )}
         </p>
       </div>
     </header>

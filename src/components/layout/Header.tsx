@@ -17,6 +17,7 @@ import {
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isServiceAreasOpen, setIsServiceAreasOpen] = useState(false);
 
   return (
     <header className="border-b border-b-border/40 relative">
@@ -50,6 +51,27 @@ export default function Header() {
                   Knowledge Base
                 </NavigationMenuLink>
               </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <div className="relative">
+                <button
+                  onClick={() => setIsServiceAreasOpen(!isServiceAreasOpen)}
+                  className={cn(navigationMenuTriggerStyle(), "hover:text-primary transition-colors")}
+                >
+                  Service Areas
+                </button>
+                {isServiceAreasOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-background border border-border rounded-md shadow-lg z-50">
+                    <ul className="py-1">
+                      <li><Link href="/local-service/groton" className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Groton</Link></li>
+                      <li><Link href="/local-service/new-london" className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">New London</Link></li>
+                      <li><Link href="/local-service/lisbon" className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Lisbon</Link></li>
+                      <li><Link href="/local-service/mystic" className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Mystic</Link></li>
+                      <li><Link href="/local-service/exeter" className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Exeter</Link></li>
+                    </ul>
+                  </div>
+                )}
+              </div>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <Link href="tel:+18607755770" legacyBehavior passHref>
@@ -87,12 +109,31 @@ export default function Header() {
                </Link>
              </NavigationMenuItem>
              <NavigationMenuItem className="w-full">
+               <button
+                 onClick={() => setIsServiceAreasOpen(!isServiceAreasOpen)}
+                 className={cn(navigationMenuTriggerStyle(), "w-full justify-start hover:text-primary transition-colors")}
+               >
+                 Service Areas
+               </button>
+               {isServiceAreasOpen && (
+                 <div className="pl-4">
+                   <ul className="py-1">
+                     <li><Link href="/local-service/groton" onClick={() => setIsMenuOpen(false)} className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Groton</Link></li>
+                     <li><Link href="/local-service/new-london" onClick={() => setIsMenuOpen(false)} className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">New London</Link></li>
+                     <li><Link href="/local-service/lisbon" onClick={() => setIsMenuOpen(false)} className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Lisbon</Link></li>
+                     <li><Link href="/local-service/mystic" onClick={() => setIsMenuOpen(false)} className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Mystic</Link></li>
+                     <li><Link href="/local-service/exeter" onClick={() => setIsMenuOpen(false)} className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Exeter</Link></li>
+                   </ul>
+                 </div>
+               )}
+             </NavigationMenuItem>
+             <NavigationMenuItem className="w-full">
                <Link href="tel:+18607755770" legacyBehavior passHref>
-                  <NavigationMenuLink onClick={() => setIsMenuOpen(false)} className={cn(navigationMenuTriggerStyle(), "w-full justify-start hover:text-primary transition-colors")}>
-                    +1-860-775-5770
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
+                 <NavigationMenuLink onClick={() => setIsMenuOpen(false)} className={cn(navigationMenuTriggerStyle(), "w-full justify-start hover:text-primary transition-colors")}>
+                   +1-860-775-5770
+                 </NavigationMenuLink>
+               </Link>
+             </NavigationMenuItem>
               <NavigationMenuItem className="w-full">
                 <Link href="mailto:inquiries@rcperformance.shop" legacyBehavior passHref>
                   <NavigationMenuLink onClick={() => setIsMenuOpen(false)} className={cn(navigationMenuTriggerStyle(), "w-full justify-start hover:text-primary transition-colors")}>
