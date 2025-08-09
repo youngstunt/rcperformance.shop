@@ -1,4 +1,4 @@
-// Chadson v69.0.0: Guerrilla Automotive Header Component
+// Chadson v69.0.0: RC Performance Header Component
 // This component displays the business name and contact information.
 
 import React from 'react';
@@ -29,9 +29,9 @@ export default function Header() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="tel:+17377472233" legacyBehavior passHref>
+              <Link href="tel:+18607755770" legacyBehavior passHref>
                 <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "hover:text-primary transition-colors")}>
-                  +1-737-747-2233
+                +1-860-775-5770
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>

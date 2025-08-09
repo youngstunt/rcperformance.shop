@@ -1,4 +1,4 @@
-// Chadson v69.0.0: Guerrilla Automotive Contact Section
+// Chadson v69.0.0: RC Performance Contact Section
 // Purpose: Display contact information and a simple contact form.
 // Refactored to integrate with the tab-based layout and shadcn/ui design system.
 // V2: Added form state, submission logic, and user feedback.
@@ -90,11 +90,11 @@ export default function Contact() {
         <div className="space-y-2 pt-4">
           <div>
             <p className="font-bold">Phone:</p>
-            <a href="tel:+17377472233" className="hover:underline ">+1-737-747-2233</a>
+            <a href="tel:+18607755770" className="hover:underline ">+1-860-775-5770</a>
           </div>
           <div>
             <p className="font-bold">Email:</p>
-            <a href="mailto:inquiries@rcperformance.sh" className="hover:underline text-white">inquiries@rcperformance.shop</a>
+            <a href="mailto:inquiries@rcperformance.shop" className="hover:underline text-white">inquiries@rcperformance.shop</a>
           </div>
         </div>
       </div>

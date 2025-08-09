@@ -1,4 +1,4 @@
-// Chadson v69.0.0: E2E tests for the Guerrilla Automotive homepage.
+// Chadson v69.0.0: E2E tests for the RC Performance homepage.
 // V4: Updated tests to reflect the new single-column, vertical scroll layout.
 
 describe('Homepage', () => {
@@ -13,7 +13,7 @@ describe('Homepage', () => {
       cy.viewport(viewport);
       
       // Verify Hero content is visible
-      cy.contains('h1', 'Guerrilla Automotive').should('be.visible');
+      cy.contains('h1', 'RC Performance').should('be.visible');
 
       // Verify Services content is visible
       cy.contains('h2', 'Our Services').should('be.visible');

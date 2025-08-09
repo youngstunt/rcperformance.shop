@@ -1,9 +1,9 @@
+/// &lt;reference types="@testing-library/jest-dom" /&gt;
 // Chadson v69.0.0: Unit tests for the Contact component.
 // Updated to reflect the refactoring with shadcn/ui components and a contact form.
 
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom'; // Diagnostic import
 import Contact from '../Contact';
 import { describe, it, expect, beforeEach, jest } from '@jest/globals';
 
@@ -24,15 +24,15 @@ describe('Contact Component', () => {
   });
 
   it('renders the phone number as a link', () => {
-    const phoneLink = screen.getByRole('link', { name: /\+1-737-747-2233/i });
+    const phoneLink = screen.getByRole('link', { name: /\+1-860-775-5770/i });
     expect(phoneLink).toBeInTheDocument();
-    expect(phoneLink).toHaveAttribute('href', 'tel:+17377472233');
+    expect(phoneLink).toHaveAttribute('href', 'tel:+18607755770');
   });
 
   it('renders the email address as a link', () => {
-    const emailLink = screen.getByRole('link', { name: /inquiries@guerrilla.sh/i });
+    const emailLink = screen.getByRole('link', { name: /inquiries@rcperformance.shop/i });
     expect(emailLink).toBeInTheDocument();
-    expect(emailLink).toHaveAttribute('href', 'mailto:inquiries@guerrilla.sh');
+    expect(emailLink).toHaveAttribute('href', 'mailto:inquiries@rcperformance.shop');
   });
 
   it('renders the contact form with all fields', () => {

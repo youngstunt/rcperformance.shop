@@ -1,4 +1,4 @@
-// Chadson v69.0.0: Cypress configuration for Guerrilla Automotive
+// Chadson v69.0.0: Cypress configuration for RC Performance
 
 import { defineConfig } from 'cypress';
 

@@ -1,7 +1,7 @@
-# Chadson v69.0.0: robots.txt for Guerrilla Automotive
+# Chadson v69.0.0: robots.txt for RC Performance
 # Allow all user agents to crawl all content.
 
 User-agent: *
 Allow: /
 
-Sitemap: https://guerrilla.sh/sitemap.xml
+Sitemap: https://rcperformance.shop/sitemap.xml

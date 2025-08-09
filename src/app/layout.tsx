@@ -1,4 +1,4 @@
-// Chadson v69.0.0: Root layout for Guerrilla Automotive
+// Chadson v69.0.0: Root layout for RC Performance
 // This file defines the main HTML structure and includes the Header and Footer.
 
 import type { Metadata } from "next";
@@ -22,7 +22,7 @@ export default function RootLayout({
     '@type': 'AutomotiveBusiness',
     name: 'RC Performance LLC',
     url: 'https://rcperformance.shop',
-    telephone: '+1-737-747-2233',
+    telephone: '+1-(860)775-5770',
     email: 'inquiries@rcperformance.shop',
     address: {
       '@type': 'PostalAddress',
