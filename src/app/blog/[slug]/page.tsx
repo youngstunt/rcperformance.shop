@@ -1,0 +1,86 @@
+/**
+ * @file src/app/blog/[slug]/page.tsx
+ * @purpose Renders a single, dynamic blog post page.
+ * @version 6.0.0
+ * @date 2025-07-14
+ *
+ * @description
+ * This dynamic route fetches a specific blog post component based on the URL slug.
+ * It dynamically imports the corresponding post component and renders it within a
+ * structured, readable layout that includes a dedicated header and fade-in animation.
+ *
+ * @dependencies
+ * - fs: For reading the list of post files for static generation.
+ * - path: For constructing file paths.
+ * - next/link: For client-side navigation.
+ * - next/navigation: For handling not-found cases.
+ * - @/components/blog/BlogHeader: The header component for blog posts.
+ * - @/components/blog/BlogLayout: The layout component for blog posts.
+ */
+
+import fs from 'fs';
+import path from 'path';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import React from 'react';
+import BlogHeader from '@/components/blog/BlogHeader';
+import BlogLayout from '@/components/blog/BlogLayout';
+
+const postsDirectory = path.join(process.cwd(), 'src/app/blog/posts');
+
+// Generate static paths for all blog posts at build time
+export async function generateStaticParams() {
+  const filenames = fs.readdirSync(postsDirectory);
+  return filenames.map((filename) => ({
+    slug: filename.replace(/\.tsx$/, ''),
+  }));
+}
+
+// Dynamically get the post component and its metadata
+const getPost = async (slug: string) => {
+  try {
+    const postModule = await import(`@/app/blog/posts/${slug}`);
+    return {
+      PostComponent: postModule.default,
+      metadata: postModule.metadata,
+    };
+  } catch (error) {
+    return notFound();
+  }
+};
+
+// Generate metadata for the page
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const { metadata } = await getPost(params.slug);
+  return {
+    title: `${metadata.title} | Guerrilla Automotive Blog`,
+    description: metadata.excerpt,
+  };
+}
+
+export default async function BlogPost({ params }: { params: { slug: string } }) {
+  const { PostComponent, metadata } = await getPost(params.slug);
+
+  return (
+    <main className="bg-background">
+      <BlogHeader 
+        title={metadata.title}
+        date={metadata.date}
+        author={metadata.author}
+      />
+      <BlogLayout>
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <PostComponent />
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link href="/blog" className="text-primary font-semibold hover:underline">
+              &larr; Back to All Posts
+            </Link>
+          </div>
+        </div>
+      </BlogLayout>
+    </main>
+  );
+}

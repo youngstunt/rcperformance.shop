@@ -1,0 +1,7 @@
+# Chadson v69.0.0: robots.txt for Guerrilla Automotive
+# Allow all user agents to crawl all content.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://guerrilla.sh/sitemap.xml
