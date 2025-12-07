@@ -15,12 +15,12 @@ export default function CallToAction() {
         <p className="text-lg mb-6">
           Call or Text Us Today for a Free Estimate!
         </p>
-        <Link href="tel:+18607755770">
+        <Link href="tel:+19594561442">
           <Button
             variant="secondary"
             className="text-2xl font-bold py-6 px-8"
           >
-            +1-860-775-5770
+            (959) 456-1442
           </Button>
         </Link>
       </div>

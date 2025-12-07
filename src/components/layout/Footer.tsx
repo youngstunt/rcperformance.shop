@@ -59,11 +59,11 @@ export default function Footer() {
             {/* Contact info */}
             <div className="mt-6 space-y-3">
               <a
-                href="tel:+18607755770"
+                href="tel:+19594561442"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 <Phone size={14} className="text-primary" />
-                860-775-5770
+                (959) 456-1442
               </a>
               <a
                 href="mailto:inquiries@rcperformance.shop"

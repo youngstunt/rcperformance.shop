@@ -149,11 +149,11 @@ export default function Header() {
 
           {/* Contact Links */}
           <Link
-            href="tel:+18607755770"
+            href="tel:+19594561442"
             className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-md hover:bg-white/5"
           >
             <Phone size={14} className="text-primary" />
-            <span className="hidden xl:inline">860-775-5770</span>
+            <span className="hidden xl:inline">(959) 456-1442</span>
           </Link>
 
           <Link
@@ -245,14 +245,14 @@ export default function Header() {
               {/* Contact Section */}
               <div className="pt-4 mt-4 border-t border-border space-y-1">
                 <Link
-                  href="tel:+18607755770"
+                  href="tel:+19594561442"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="flex items-center gap-3 px-4 py-3 text-foreground hover:text-primary hover:bg-white/5 rounded-lg transition-colors"
                 >
                   <Phone size={18} className="text-primary" />
                   <div>
                     <div className="font-medium">Call or Text</div>
-                    <div className="text-sm text-muted-foreground">860-775-5770</div>
+                    <div className="text-sm text-muted-foreground">(959) 456-1442</div>
                   </div>
                 </Link>
 

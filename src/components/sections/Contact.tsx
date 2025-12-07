@@ -15,8 +15,8 @@ const contactInfo = [
   {
     icon: Phone,
     title: 'Phone',
-    value: '860-775-5770',
-    href: 'tel:+18607755770',
+    value: '(959) 456-1442',
+    href: 'tel:+19594561442',
     description: 'Call or text anytime',
   },
   {

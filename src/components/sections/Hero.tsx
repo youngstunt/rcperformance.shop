@@ -87,9 +87,9 @@ export default function Hero() {
               size="lg"
               className="text-base px-6 border-chrome/30 hover:border-primary/50 hover:bg-primary/5"
             >
-              <Link href="tel:+18607755770">
+              <Link href="tel:+19594561442">
                 <Phone size={18} className="mr-2" />
-                860-775-5770
+                (959) 456-1442
               </Link>
             </Button>
           </motion.div>
