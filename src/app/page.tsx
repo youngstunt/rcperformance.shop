@@ -1,58 +1,35 @@
-"use client";
+'use client';
 
-// Chadson v69.0.0: Guerrilla Automotive Business Profile
-// Main page with a new vertical, scroll-based layout.
-
-import { motion } from "framer-motion";
-import Hero from "@/components/sections/Hero";
-import Services from "@/components/sections/Services";
-import Contact from "@/components/sections/Contact";
-import Tagline from "@/components/sections/Tagline";
-import Map from "@/components/sections/Map";
-import { Separator } from "@/components/ui/separator";
-
-const SectionWrapper = ({ children }: { children: React.ReactNode }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, amount: 0.3 }}
-    transition={{ duration: 0.6 }}
-    className="py-12"
-  >
-    {children}
-  </motion.div>
-);
+import Hero from '@/components/sections/Hero';
+import Services from '@/components/sections/Services';
+import Contact from '@/components/sections/Contact';
+import Tagline from '@/components/sections/Tagline';
+import { SectionDivider } from '@/components/svg';
 
 export default function Home() {
   return (
-    <main className="container mx-auto p-4">
-      <SectionWrapper>
-        <Hero />
-      </SectionWrapper>
+    <main className="min-h-screen">
+      {/* Hero - full width, no container */}
+      <Hero />
 
-      <Separator className="my-8" />
+      {/* Tagline section */}
+      <Tagline />
 
-      <SectionWrapper>
-        <Tagline />
-      </SectionWrapper>
+      {/* Divider */}
+      <div className="container mx-auto px-4">
+        <SectionDivider />
+      </div>
 
-      <Separator className="my-8" />
+      {/* Services */}
+      <Services />
 
-      <SectionWrapper>
-        <Services />
-      </SectionWrapper>
+      {/* Divider */}
+      <div className="container mx-auto px-4">
+        <SectionDivider />
+      </div>
 
-      <Separator className="my-8" />
-
-      <SectionWrapper>
-        <Contact />
-      </SectionWrapper>
-
-      <Separator className="my-8" />
-
-      <SectionWrapper>
-        <Map />
-      </SectionWrapper>
+      {/* Contact */}
+      <Contact />
     </main>
   );
 }

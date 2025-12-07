@@ -1,150 +1,277 @@
-"use client";
+'use client';
 
-// Chadson v69.0.0: RC Performance Header Component
-// This component displays the business logo and navigation links.
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Logo from '@/components/Logo';
-import { cn } from "@/lib/utils";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ChevronDown, Phone, Mail, MapPin } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { LogoSVG } from '@/components/svg';
+import { mobileMenuVariants } from '@/lib/animations';
+
+const serviceAreas = [
+  { name: 'Groton', href: '/local-service/groton' },
+  { name: 'New London', href: '/local-service/new-london' },
+  { name: 'Lisbon', href: '/local-service/lisbon' },
+  { name: 'Mystic', href: '/local-service/mystic' },
+  { name: 'Exeter', href: '/local-service/exeter' },
+];
+
+const navLinks = [
+  { name: 'Blog', href: '/blog' },
+  { name: 'Knowledge Base', href: '/knowledge-base' },
+];
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServiceAreasOpen, setIsServiceAreasOpen] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   return (
-    <header className="border-b border-b-border/40 relative">
+    <header
+      className={cn(
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+        isScrolled
+          ? 'bg-background/95 backdrop-blur-md border-b border-border/50 shadow-lg shadow-black/10'
+          : 'bg-transparent border-b border-transparent'
+      )}
+    >
+      {/* Industrial accent line */}
+      <div
+        className={cn(
+          'h-0.5 transition-opacity duration-300',
+          isScrolled ? 'opacity-100' : 'opacity-0'
+        )}
+        style={{
+          background: 'linear-gradient(90deg, transparent, var(--primary), transparent)',
+        }}
+      />
+
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link href="/" className="flex items-center space-x-2">
-          <Logo />
+        {/* Logo */}
+        <Link
+          href="/"
+          className="flex items-center gap-3 group"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          <LogoSVG size={40} className="transition-transform duration-300 group-hover:scale-105" />
+          <div className="flex flex-col">
+            <span
+              className="text-lg font-bold tracking-tight transition-colors group-hover:text-primary"
+              style={{ fontFamily: 'var(--font-heading)' }}
+            >
+              RC PERFORMANCE
+            </span>
+            <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+              ECU Tuning
+            </span>
+          </div>
         </Link>
-        <div className="md:hidden">
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white focus:outline-none">
-            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              {isMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center gap-1">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-md hover:bg-white/5"
+            >
+              {link.name}
+            </Link>
+          ))}
+
+          {/* Service Areas Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setIsServiceAreasOpen(!isServiceAreasOpen)}
+              onBlur={() => setTimeout(() => setIsServiceAreasOpen(false), 150)}
+              className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-md hover:bg-white/5"
+            >
+              <MapPin size={14} className="opacity-60" />
+              Service Areas
+              <ChevronDown
+                size={14}
+                className={cn(
+                  'transition-transform duration-200',
+                  isServiceAreasOpen && 'rotate-180'
+                )}
+              />
+            </button>
+
+            <AnimatePresence>
+              {isServiceAreasOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute top-full left-0 mt-2 w-48 bg-card border border-border rounded-lg shadow-xl shadow-black/20 overflow-hidden"
+                >
+                  <div className="py-1">
+                    {serviceAreas.map((area) => (
+                      <Link
+                        key={area.href}
+                        href={area.href}
+                        className="block px-4 py-2 text-sm text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+                        onClick={() => setIsServiceAreasOpen(false)}
+                      >
+                        {area.name}
+                      </Link>
+                    ))}
+                  </div>
+                </motion.div>
               )}
-            </svg>
-          </button>
-        </div>
-        <NavigationMenu className="hidden md:flex">
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link href="/blog" legacyBehavior passHref>
-                <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "hover:text-primary transition-colors")}>
-                  Blog
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/knowledge-base" legacyBehavior passHref>
-                <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "hover:text-primary transition-colors")}>
-                  Knowledge Base
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <div className="relative">
+            </AnimatePresence>
+          </div>
+
+          {/* Divider */}
+          <div className="w-px h-6 bg-border mx-2" />
+
+          {/* Contact Links */}
+          <Link
+            href="tel:+18607755770"
+            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-md hover:bg-white/5"
+          >
+            <Phone size={14} className="text-primary" />
+            <span className="hidden xl:inline">860-775-5770</span>
+          </Link>
+
+          <Link
+            href="mailto:inquiries@rcperformance.shop"
+            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-md hover:bg-white/5"
+          >
+            <Mail size={14} className="text-primary" />
+            <span className="hidden xl:inline">Email Us</span>
+          </Link>
+        </nav>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="lg:hidden p-2 text-foreground hover:text-primary transition-colors"
+          aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            className="lg:hidden bg-card border-t border-border overflow-hidden"
+          >
+            <nav className="container mx-auto px-4 py-6 space-y-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-4 py-3 text-foreground hover:text-primary hover:bg-white/5 rounded-lg transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
+
+              {/* Service Areas Accordion */}
+              <div>
                 <button
                   onClick={() => setIsServiceAreasOpen(!isServiceAreasOpen)}
-                  className={cn(navigationMenuTriggerStyle(), "hover:text-primary transition-colors")}
+                  className="flex items-center justify-between w-full px-4 py-3 text-foreground hover:text-primary hover:bg-white/5 rounded-lg transition-colors"
                 >
-                  Service Areas
+                  <span className="flex items-center gap-2">
+                    <MapPin size={16} className="text-primary" />
+                    Service Areas
+                  </span>
+                  <ChevronDown
+                    size={16}
+                    className={cn(
+                      'transition-transform duration-200',
+                      isServiceAreasOpen && 'rotate-180'
+                    )}
+                  />
                 </button>
-                {isServiceAreasOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-background border border-border rounded-md shadow-lg z-50">
-                    <ul className="py-1">
-                      <li><Link href="/local-service/groton" className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Groton</Link></li>
-                      <li><Link href="/local-service/new-london" className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">New London</Link></li>
-                      <li><Link href="/local-service/lisbon" className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Lisbon</Link></li>
-                      <li><Link href="/local-service/mystic" className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Mystic</Link></li>
-                      <li><Link href="/local-service/exeter" className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Exeter</Link></li>
-                    </ul>
-                  </div>
-                )}
+
+                <AnimatePresence>
+                  {isServiceAreasOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-6 py-2 space-y-1">
+                        {serviceAreas.map((area) => (
+                          <Link
+                            key={area.href}
+                            href={area.href}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-white/5 rounded-lg transition-colors"
+                          >
+                            {area.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="tel:+18607755770" legacyBehavior passHref>
-                <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "hover:text-primary transition-colors")}>
-                  +1-860-775-5770 (Call or Text)
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="mailto:inquiries@rcperformance.shop" legacyBehavior passHref>
-                <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "hover:text-primary transition-colors")}>
-                  inquiries@rcperformance.shop
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-      </div>
-      {isMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 right-0 bg-background border-b border-b-border/40 z-50">
-          <NavigationMenu>
-            <NavigationMenuList className="flex-col items-start p-4 space-y-2">
-              <NavigationMenuItem className="w-full">
-                <Link href="/blog" legacyBehavior passHref>
-                  <NavigationMenuLink onClick={() => setIsMenuOpen(false)} className={cn(navigationMenuTriggerStyle(), "w-full justify-start hover:text-primary transition-colors")}>
-                    Blog
-                  </NavigationMenuLink>
+
+              {/* Contact Section */}
+              <div className="pt-4 mt-4 border-t border-border space-y-1">
+                <Link
+                  href="tel:+18607755770"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-foreground hover:text-primary hover:bg-white/5 rounded-lg transition-colors"
+                >
+                  <Phone size={18} className="text-primary" />
+                  <div>
+                    <div className="font-medium">Call or Text</div>
+                    <div className="text-sm text-muted-foreground">860-775-5770</div>
+                  </div>
                 </Link>
-              </NavigationMenuItem>
-             <NavigationMenuItem className="w-full">
-               <Link href="/knowledge-base" legacyBehavior passHref>
-                 <NavigationMenuLink onClick={() => setIsMenuOpen(false)} className={cn(navigationMenuTriggerStyle(), "w-full justify-start hover:text-primary transition-colors")}>
-                   Knowledge Base
-                 </NavigationMenuLink>
-               </Link>
-             </NavigationMenuItem>
-             <NavigationMenuItem className="w-full">
-               <button
-                 onClick={() => setIsServiceAreasOpen(!isServiceAreasOpen)}
-                 className={cn(navigationMenuTriggerStyle(), "w-full justify-start hover:text-primary transition-colors")}
-               >
-                 Service Areas
-               </button>
-               {isServiceAreasOpen && (
-                 <div className="pl-4">
-                   <ul className="py-1">
-                     <li><Link href="/local-service/groton" onClick={() => setIsMenuOpen(false)} className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Groton</Link></li>
-                     <li><Link href="/local-service/new-london" onClick={() => setIsMenuOpen(false)} className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">New London</Link></li>
-                     <li><Link href="/local-service/lisbon" onClick={() => setIsMenuOpen(false)} className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Lisbon</Link></li>
-                     <li><Link href="/local-service/mystic" onClick={() => setIsMenuOpen(false)} className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Mystic</Link></li>
-                     <li><Link href="/local-service/exeter" onClick={() => setIsMenuOpen(false)} className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-primary">Exeter</Link></li>
-                   </ul>
-                 </div>
-               )}
-             </NavigationMenuItem>
-             <NavigationMenuItem className="w-full">
-               <Link href="tel:+18607755770" legacyBehavior passHref>
-                 <NavigationMenuLink onClick={() => setIsMenuOpen(false)} className={cn(navigationMenuTriggerStyle(), "w-full justify-start hover:text-primary transition-colors")}>
-                   +1-860-775-5770 (Call or Text)
-                 </NavigationMenuLink>
-               </Link>
-             </NavigationMenuItem>
-              <NavigationMenuItem className="w-full">
-                <Link href="mailto:inquiries@rcperformance.shop" legacyBehavior passHref>
-                  <NavigationMenuLink onClick={() => setIsMenuOpen(false)} className={cn(navigationMenuTriggerStyle(), "w-full justify-start hover:text-primary transition-colors")}>
-                    inquiries@rcperformance.shop
-                  </NavigationMenuLink>
+
+                <Link
+                  href="mailto:inquiries@rcperformance.shop"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-foreground hover:text-primary hover:bg-white/5 rounded-lg transition-colors"
+                >
+                  <Mail size={18} className="text-primary" />
+                  <div>
+                    <div className="font-medium">Email</div>
+                    <div className="text-sm text-muted-foreground">inquiries@rcperformance.shop</div>
+                  </div>
                 </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        </div>
-      )}
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
