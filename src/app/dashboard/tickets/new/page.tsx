@@ -15,8 +15,10 @@ import {
 } from "@/components/ui/select"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Loader2, ArrowLeft, CreditCard, Car, Wrench, FileText } from "lucide-react"
+import { Loader2, ArrowLeft, CreditCard, Car, Wrench, FileText, BookOpen } from "lucide-react"
 import Link from "next/link"
+import { VehicleGuidePanel } from "@/components/guides"
+import type { EcuTool } from "@/lib/guides/types"
 
 const currentYear = new Date().getFullYear()
 const years = Array.from({ length: 30 }, (_, i) => currentYear - i)
@@ -320,6 +322,23 @@ export default function NewTicketPage() {
             </p>
           </CardContent>
         </Card>
+
+        {/* ECU Reading Guide */}
+        {formData.ecuReadTool && (
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+              <BookOpen className="w-4 h-4" />
+              How to Read Your ECU
+            </div>
+            <VehicleGuidePanel
+              year={formData.vehicleYear}
+              make={formData.vehicleMake}
+              model={formData.vehicleModel}
+              tool={formData.ecuReadTool as EcuTool}
+              showGuideType="reading"
+            />
+          </div>
+        )}
 
         {/* Pricing & Submit */}
         <Card className="border-primary">

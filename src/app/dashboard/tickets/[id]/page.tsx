@@ -25,7 +25,10 @@ import {
   Wrench,
   FileText,
   RefreshCw,
+  BookOpen,
 } from "lucide-react"
+import { VehicleGuidePanel } from "@/components/guides"
+import type { EcuTool } from "@/lib/guides/types"
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
@@ -240,6 +243,21 @@ export default function TicketDetailPage() {
               ))}
             </div>
 
+            {/* Flashing Guide */}
+            <div className="pt-4 border-t space-y-3">
+              <div className="flex items-center gap-2 text-sm font-medium">
+                <BookOpen className="w-4 h-4" />
+                How to Flash Your Tune
+              </div>
+              <VehicleGuidePanel
+                year={ticket.vehicleYear}
+                make={ticket.vehicleMake}
+                model={ticket.vehicleModel}
+                tool={ticket.ecuReadTool as EcuTool}
+                showGuideType="writing"
+              />
+            </div>
+
             <div className="pt-4 border-t">
               <Button variant="outline" onClick={handlePayment} disabled={isCheckingOut}>
                 {isCheckingOut ? (
@@ -311,6 +329,17 @@ export default function TicketDetailPage() {
               )}
             </CardContent>
           </Card>
+
+          {/* Tool Guides */}
+          {ticket.ecuReadTool && ticket.status !== "PENDING_PAYMENT" && (
+            <VehicleGuidePanel
+              year={ticket.vehicleYear}
+              make={ticket.vehicleMake}
+              model={ticket.vehicleModel}
+              tool={ticket.ecuReadTool as EcuTool}
+              showGuideType={ticket.status === "COMPLETED" ? "writing" : "reading"}
+            />
+          )}
         </div>
 
         {/* Conversation */}

@@ -54,7 +54,9 @@ export function VehicleGuidePanel({
     : null
 
   // Get OBD location
-  const obdLocation = make ? getObdLocation(make) : undefined
+  const obdLocation = make && model && year
+    ? getObdLocation(make, model, parseInt(year))
+    : undefined
 
   // Get the guide for the selected tool
   const guide = tool ? getToolGuide(tool, activeTab) : null
