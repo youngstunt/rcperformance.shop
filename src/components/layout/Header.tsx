@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, Phone, Mail, MapPin } from 'lucide-react';
+import { Menu, X, ChevronDown, Phone, Mail, MapPin, LogIn, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { LogoSVG } from '@/components/svg';
 import { mobileMenuVariants } from '@/lib/animations';
@@ -22,6 +23,7 @@ const navLinks = [
 ];
 
 export default function Header() {
+  const { data: session, status } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServiceAreasOpen, setIsServiceAreasOpen] = useState(false);
@@ -163,6 +165,30 @@ export default function Header() {
             <Mail size={14} className="text-primary" />
             <span className="hidden xl:inline">Email Us</span>
           </Link>
+
+          {/* Divider */}
+          <div className="w-px h-6 bg-border mx-2" />
+
+          {/* Login / Dashboard Button */}
+          {status === 'loading' ? (
+            <div className="w-24 h-9 bg-white/5 rounded-md animate-pulse" />
+          ) : session ? (
+            <Link
+              href="/dashboard"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors rounded-md"
+            >
+              <User size={14} />
+              Dashboard
+            </Link>
+          ) : (
+            <Link
+              href="/auth/login"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors rounded-md"
+            >
+              <LogIn size={14} />
+              Client Portal
+            </Link>
+          )}
         </nav>
 
         {/* Mobile Menu Button */}
@@ -267,6 +293,29 @@ export default function Header() {
                     <div className="text-sm text-muted-foreground">inquiries@rcperformance.shop</div>
                   </div>
                 </Link>
+              </div>
+
+              {/* Login / Dashboard Button */}
+              <div className="pt-4 mt-4 border-t border-border">
+                {session ? (
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center justify-center gap-2 px-4 py-3 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg transition-colors font-medium"
+                  >
+                    <User size={18} />
+                    Go to Dashboard
+                  </Link>
+                ) : (
+                  <Link
+                    href="/auth/login"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center justify-center gap-2 px-4 py-3 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg transition-colors font-medium"
+                  >
+                    <LogIn size={18} />
+                    Client Portal Login
+                  </Link>
+                )}
               </div>
             </nav>
           </motion.div>
