@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import Image from 'next/image';
+import { Phone, Mail, MapPin, ExternalLink } from 'lucide-react';
 import { LogoSVG } from '@/components/svg';
 import { SectionDivider } from '@/components/svg';
 
@@ -156,6 +157,31 @@ export default function Footer() {
 
         {/* Divider */}
         <SectionDivider className="my-8" />
+
+        {/* WinOLS Verification Badge */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 p-4 rounded-lg bg-background/50 border border-border">
+          <Image
+            src="/winols-logo.gif"
+            alt="WinOLS by EVC"
+            width={100}
+            height={64}
+            className="object-contain"
+          />
+          <div className="text-center sm:text-left">
+            <p className="text-sm text-muted-foreground mb-2">
+              Licensed WinOLS tuning software
+            </p>
+            <a
+              href="https://www.evc.de/en/check_evc_license.asp?k=Pi1AjG%2bfo%2bOEuqzygAlnWw%3d%3d"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+            >
+              Verify WinOLS License
+              <ExternalLink size={14} />
+            </a>
+          </div>
+        </div>
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
