@@ -6,6 +6,7 @@ import "./globals.css";
 import "leaflet/dist/leaflet.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { SessionProvider } from "@/components/providers/SessionProvider";
 
 export const metadata: Metadata = {
   title: "RC Performance | Connecticut's Premier ECU Tuning & Performance Shop",
@@ -88,9 +89,11 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        <Header />
-        {children}
-        <Footer />
+        <SessionProvider>
+          <Header />
+          {children}
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   );
