@@ -15,6 +15,12 @@ const serviceAreas = [
   { name: 'Lisbon', href: '/local-service/lisbon' },
   { name: 'Mystic', href: '/local-service/mystic' },
   { name: 'Exeter', href: '/local-service/exeter' },
+  { name: 'Willimantic', href: '/local-service/willimantic' },
+  { name: 'Norwich', href: '/local-service/norwich' },
+  { name: 'Plainfield', href: '/local-service/plainfield' },
+  { name: 'Canterbury', href: '/local-service/canterbury' },
+  { name: 'Griswold', href: '/local-service/griswold' },
+  { name: 'Jewett City', href: '/local-service/jewett-city' },
 ];
 
 const navLinks = [
