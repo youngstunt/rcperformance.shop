@@ -22,13 +22,6 @@ export default defineConfig({
         '**/types/**',
       ],
     },
-    // Ensure tests run in-process without spawning subprocesses
-    pool: 'forks',
-    poolOptions: {
-      forks: {
-        singleFork: true,
-      },
-    },
     // Mock all external network calls
     server: {
       deps: {
