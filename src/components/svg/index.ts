@@ -1,4 +1,5 @@
 export { default as LogoSVG, LogoCompact } from './LogoSVG';
+export { default as WinOLSLogo } from './WinOLSLogo';
 export { default as HeroBackground, GridBackground } from './HeroBackground';
 export {
   ECUChipIcon,

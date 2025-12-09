@@ -1,10 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { Phone, Mail, MapPin, ExternalLink } from 'lucide-react';
-import { LogoSVG } from '@/components/svg';
-import { SectionDivider } from '@/components/svg';
+import { LogoSVG, SectionDivider, WinOLSLogo } from '@/components/svg';
 
 const services = [
   { name: 'ECU Remapping', href: '/#services' },
@@ -160,13 +158,7 @@ export default function Footer() {
 
         {/* WinOLS Verification Badge */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 p-4 rounded-lg bg-background/50 border border-border">
-          <Image
-            src="/winols-logo.gif"
-            alt="WinOLS by EVC"
-            width={100}
-            height={64}
-            className="object-contain"
-          />
+          <WinOLSLogo width={100} height={64} />
           <div className="text-center sm:text-left">
             <p className="text-sm text-muted-foreground mb-2">
               Licensed WinOLS tuning software
