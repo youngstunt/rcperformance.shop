@@ -196,3 +196,177 @@ export async function sendPaymentConfirmationEmail(
     `,
   })
 }
+
+// Admin notification email address
+const ADMIN_EMAIL = "rcperformancellc@gmail.com"
+
+/**
+ * Send admin notification when a new ticket is created
+ */
+export async function sendAdminNewTicketEmail(
+  ticketId: string,
+  customerEmail: string,
+  vehicleInfo: string,
+  ecuReadTool: string,
+  tuneType?: string,
+  notes?: string
+) {
+  const ticketUrl = `${process.env.NEXTAUTH_URL}/admin/tickets/${ticketId}`
+
+  await transporter.sendMail({
+    from: `"RC Performance" <${process.env.GMAIL_USER}>`,
+    to: ADMIN_EMAIL,
+    subject: `New Ticket Created - ${vehicleInfo}`,
+    html: `
+      <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #1a1a1a; color: #ffffff; padding: 32px; border-radius: 8px;">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <h1 style="color: #dc2626; margin: 0; font-size: 24px;">RC PERFORMANCE - ADMIN</h1>
+        </div>
+
+        <h2 style="color: #3b82f6; margin-bottom: 16px;">New Ticket Created</h2>
+
+        <div style="background-color: #2a2a2a; padding: 16px; border-radius: 8px; margin: 24px 0;">
+          <p style="color: #888888; margin: 0 0 8px 0; font-size: 14px;">Customer</p>
+          <p style="color: #ffffff; margin: 0 0 16px 0; font-weight: bold;">${customerEmail}</p>
+
+          <p style="color: #888888; margin: 0 0 8px 0; font-size: 14px;">Vehicle</p>
+          <p style="color: #ffffff; margin: 0 0 16px 0; font-weight: bold;">${vehicleInfo}</p>
+
+          <p style="color: #888888; margin: 0 0 8px 0; font-size: 14px;">ECU Read Tool</p>
+          <p style="color: #ffffff; margin: 0 0 16px 0;">${ecuReadTool}</p>
+
+          ${tuneType ? `
+          <p style="color: #888888; margin: 0 0 8px 0; font-size: 14px;">Tune Type</p>
+          <p style="color: #ffffff; margin: 0 0 16px 0;">${tuneType}</p>
+          ` : ''}
+
+          ${notes ? `
+          <p style="color: #888888; margin: 0 0 8px 0; font-size: 14px;">Notes</p>
+          <p style="color: #ffffff; margin: 0; white-space: pre-wrap;">${notes}</p>
+          ` : ''}
+        </div>
+
+        <p style="color: #fbbf24; margin-bottom: 24px;">
+          Status: Pending Payment
+        </p>
+
+        <a href="${ticketUrl}" style="display: inline-block; background-color: #dc2626; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+          View Ticket in Admin
+        </a>
+
+        <hr style="border: none; border-top: 1px solid #333; margin: 32px 0;" />
+
+        <p style="color: #666666; font-size: 12px; text-align: center;">
+          This is an automated admin notification from RC Performance
+        </p>
+      </div>
+    `,
+  })
+}
+
+/**
+ * Send admin notification when payment is received
+ */
+export async function sendAdminPaymentReceivedEmail(
+  ticketId: string,
+  customerEmail: string,
+  vehicleInfo: string,
+  amount: number,
+  paymentType: string
+) {
+  const ticketUrl = `${process.env.NEXTAUTH_URL}/admin/tickets/${ticketId}`
+  const formattedAmount = (amount / 100).toFixed(2)
+
+  await transporter.sendMail({
+    from: `"RC Performance" <${process.env.GMAIL_USER}>`,
+    to: ADMIN_EMAIL,
+    subject: `Payment Received - $${formattedAmount} - ${vehicleInfo}`,
+    html: `
+      <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #1a1a1a; color: #ffffff; padding: 32px; border-radius: 8px;">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <h1 style="color: #dc2626; margin: 0; font-size: 24px;">RC PERFORMANCE - ADMIN</h1>
+        </div>
+
+        <h2 style="color: #22c55e; margin-bottom: 16px;">Payment Received!</h2>
+
+        <div style="background-color: #2a2a2a; padding: 16px; border-radius: 8px; margin: 24px 0;">
+          <p style="color: #888888; margin: 0 0 8px 0; font-size: 14px;">Amount</p>
+          <p style="color: #22c55e; margin: 0 0 16px 0; font-weight: bold; font-size: 28px;">$${formattedAmount}</p>
+
+          <p style="color: #888888; margin: 0 0 8px 0; font-size: 14px;">Payment Type</p>
+          <p style="color: #ffffff; margin: 0 0 16px 0;">${paymentType === 'NEW_TICKET' ? 'New Ticket' : 'Ticket Reopen'}</p>
+
+          <p style="color: #888888; margin: 0 0 8px 0; font-size: 14px;">Customer</p>
+          <p style="color: #ffffff; margin: 0 0 16px 0;">${customerEmail}</p>
+
+          <p style="color: #888888; margin: 0 0 8px 0; font-size: 14px;">Vehicle</p>
+          <p style="color: #ffffff; margin: 0;">${vehicleInfo}</p>
+        </div>
+
+        <p style="color: #cccccc; margin-bottom: 24px;">
+          The ticket is now open and ready for you to start working on.
+        </p>
+
+        <a href="${ticketUrl}" style="display: inline-block; background-color: #dc2626; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+          View Ticket in Admin
+        </a>
+
+        <hr style="border: none; border-top: 1px solid #333; margin: 32px 0;" />
+
+        <p style="color: #666666; font-size: 12px; text-align: center;">
+          This is an automated admin notification from RC Performance
+        </p>
+      </div>
+    `,
+  })
+}
+
+/**
+ * Send admin notification when customer sends a message
+ */
+export async function sendAdminCustomerMessageEmail(
+  ticketId: string,
+  customerEmail: string,
+  vehicleInfo: string,
+  message: string
+) {
+  const ticketUrl = `${process.env.NEXTAUTH_URL}/admin/tickets/${ticketId}`
+
+  await transporter.sendMail({
+    from: `"RC Performance" <${process.env.GMAIL_USER}>`,
+    to: ADMIN_EMAIL,
+    subject: `Customer Message - ${vehicleInfo}`,
+    html: `
+      <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #1a1a1a; color: #ffffff; padding: 32px; border-radius: 8px;">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <h1 style="color: #dc2626; margin: 0; font-size: 24px;">RC PERFORMANCE - ADMIN</h1>
+        </div>
+
+        <h2 style="color: #3b82f6; margin-bottom: 16px;">New Customer Message</h2>
+
+        <div style="background-color: #2a2a2a; padding: 16px; border-radius: 8px; margin: 24px 0;">
+          <p style="color: #888888; margin: 0 0 8px 0; font-size: 14px;">Customer</p>
+          <p style="color: #ffffff; margin: 0 0 16px 0; font-weight: bold;">${customerEmail}</p>
+
+          <p style="color: #888888; margin: 0 0 8px 0; font-size: 14px;">Vehicle</p>
+          <p style="color: #ffffff; margin: 0 0 16px 0;">${vehicleInfo}</p>
+
+          <p style="color: #888888; margin: 0 0 8px 0; font-size: 14px;">Message</p>
+          <div style="background-color: #1a1a1a; padding: 12px; border-radius: 4px; border-left: 4px solid #3b82f6;">
+            <p style="color: #ffffff; margin: 0; white-space: pre-wrap;">${message}</p>
+          </div>
+        </div>
+
+        <a href="${ticketUrl}" style="display: inline-block; background-color: #dc2626; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+          Reply in Admin
+        </a>
+
+        <hr style="border: none; border-top: 1px solid #333; margin: 32px 0;" />
+
+        <p style="color: #666666; font-size: 12px; text-align: center;">
+          This is an automated admin notification from RC Performance
+        </p>
+      </div>
+    `,
+  })
+}

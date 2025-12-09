@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { headers } from "next/headers"
 import { stripe, isStripeConfigured } from "@/lib/stripe"
 import { prisma } from "@/lib/prisma"
-import { sendPaymentConfirmationEmail } from "@/lib/email"
+import { sendPaymentConfirmationEmail, sendAdminPaymentReceivedEmail } from "@/lib/email"
 import Stripe from "stripe"
 
 export async function POST(request: Request) {
@@ -85,9 +85,9 @@ export async function POST(request: Request) {
           },
         })
 
-        // Send confirmation email
+        // Send confirmation email to customer
+        const vehicleInfo = `${ticket.vehicleYear} ${ticket.vehicleMake} ${ticket.vehicleModel}`
         if (ticket.user.email) {
-          const vehicleInfo = `${ticket.vehicleYear} ${ticket.vehicleMake} ${ticket.vehicleModel}`
           await sendPaymentConfirmationEmail(
             ticket.user.email,
             ticketId,
@@ -95,6 +95,15 @@ export async function POST(request: Request) {
             session.amount_total || 20000
           )
         }
+
+        // Send notification email to admin
+        sendAdminPaymentReceivedEmail(
+          ticketId,
+          ticket.user.email || "Unknown",
+          vehicleInfo,
+          session.amount_total || 20000,
+          paymentType
+        ).catch((err) => console.error("Failed to send admin payment email:", err))
 
         console.log(`Payment completed for ticket ${ticketId}`)
         break

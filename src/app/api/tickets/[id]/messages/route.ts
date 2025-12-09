@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
-import { sendTicketUpdateEmail } from "@/lib/email"
+import { sendTicketUpdateEmail, sendAdminCustomerMessageEmail } from "@/lib/email"
 
 // GET /api/tickets/[id]/messages - Get messages for a ticket
 export async function GET(
@@ -133,22 +133,24 @@ export async function POST(
     }
 
     // Send email notification to the other party
-    try {
-      const vehicleInfo = `${ticket.vehicleYear} ${ticket.vehicleMake} ${ticket.vehicleModel}`
+    const vehicleInfo = `${ticket.vehicleYear} ${ticket.vehicleMake} ${ticket.vehicleModel}`
 
-      if (isAdmin && ticket.user.email) {
-        // Admin sent message, notify customer
-        await sendTicketUpdateEmail(
-          ticket.user.email,
-          ticket.id,
-          vehicleInfo,
-          content.trim()
-        )
-      }
-      // Could also notify admin when customer sends message
-    } catch (emailError) {
-      console.error("Failed to send notification email:", emailError)
-      // Don't fail the request if email fails
+    if (isAdmin && ticket.user.email) {
+      // Admin sent message, notify customer
+      sendTicketUpdateEmail(
+        ticket.user.email,
+        ticket.id,
+        vehicleInfo,
+        content.trim()
+      ).catch((err) => console.error("Failed to send customer notification email:", err))
+    } else if (!isAdmin) {
+      // Customer sent message, notify admin
+      sendAdminCustomerMessageEmail(
+        ticket.id,
+        session.user.email || "Unknown",
+        vehicleInfo,
+        content.trim()
+      ).catch((err) => console.error("Failed to send admin notification email:", err))
     }
 
     return NextResponse.json({ message }, { status: 201 })

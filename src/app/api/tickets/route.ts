@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import { sendAdminNewTicketEmail } from "@/lib/email"
 
 // GET /api/tickets - List user's tickets
 export async function GET() {
@@ -77,6 +78,17 @@ export async function POST(request: Request) {
         status: "PENDING_PAYMENT",
       },
     })
+
+    // Send admin notification email (don't await to avoid blocking response)
+    const vehicleInfo = `${vehicleYear} ${vehicleMake} ${vehicleModel}`
+    sendAdminNewTicketEmail(
+      ticket.id,
+      session.user.email || "Unknown",
+      vehicleInfo,
+      ecuReadTool,
+      tuneType,
+      notes
+    ).catch((err) => console.error("Failed to send admin new ticket email:", err))
 
     return NextResponse.json({ ticket }, { status: 201 })
   } catch (error) {
